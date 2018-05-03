@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/eugene/Developer/Assigment3/Assigment3/Supporting files/Grid.swift">
+      location = "group:/Users/eugene/Developer/Assigment3/Assigment3/PlayingTableView.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/eugene/Developer/Assigment3/Assigment3/Grid.swift">
    </FileRef>
    <FileRef
       location = "self:Assigment3.xcodeproj">

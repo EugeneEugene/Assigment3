@@ -10,15 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var playingTableOutlet: PlayingTableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        print("grid count: \(playingTableOutlet.grid.cellCount)")
+        for index in 0..<playingTableOutlet.grid.cellCount {
+            let b = UIBezierPath(rect: playingTableOutlet.grid[1,1]!)
+            UIColor.red.setFill()
+            b.fill()
+        }
+        playingTableOutlet.setNeedsLayout()
+        playingTableOutlet.setNeedsDisplay()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
 
 
 }
