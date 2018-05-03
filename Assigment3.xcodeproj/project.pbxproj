@@ -12,6 +12,7 @@
 		44F11F5A209B30E500ED8AD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F11F58209B30E500ED8AD5 /* Main.storyboard */; };
 		44F11F5C209B30E700ED8AD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44F11F5B209B30E700ED8AD5 /* Assets.xcassets */; };
 		44F11F5F209B30E700ED8AD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F11F5D209B30E700ED8AD5 /* LaunchScreen.storyboard */; };
+		44F11F68209B314900ED8AD5 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F11F67209B314900ED8AD5 /* Grid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		44F11F5B209B30E700ED8AD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44F11F5E209B30E700ED8AD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44F11F60209B30E700ED8AD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44F11F67209B314900ED8AD5 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Grid.swift; path = "/Users/eugene/Developer/Assigment3/Assigment3/Supporting files/Grid.swift"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		44F11F53209B30E500ED8AD5 /* Assigment3 */ = {
 			isa = PBXGroup;
 			children = (
-				44F11F54209B30E500ED8AD5 /* AppDelegate.swift */,
+				44F11F66209B30FD00ED8AD5 /* Supporting files */,
 				44F11F56209B30E500ED8AD5 /* ViewController.swift */,
+				44F11F67209B314900ED8AD5 /* Grid.swift */,
 				44F11F58209B30E500ED8AD5 /* Main.storyboard */,
-				44F11F5B209B30E700ED8AD5 /* Assets.xcassets */,
-				44F11F5D209B30E700ED8AD5 /* LaunchScreen.storyboard */,
 				44F11F60209B30E700ED8AD5 /* Info.plist */,
 			);
 			path = Assigment3;
+			sourceTree = "<group>";
+		};
+		44F11F66209B30FD00ED8AD5 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				44F11F54209B30E500ED8AD5 /* AppDelegate.swift */,
+				44F11F5B209B30E700ED8AD5 /* Assets.xcassets */,
+				44F11F5D209B30E700ED8AD5 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			files = (
 				44F11F57209B30E500ED8AD5 /* ViewController.swift in Sources */,
 				44F11F55209B30E500ED8AD5 /* AppDelegate.swift in Sources */,
+				44F11F68209B314900ED8AD5 /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
