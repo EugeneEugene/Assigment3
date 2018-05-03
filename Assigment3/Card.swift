@@ -35,6 +35,5 @@ struct Card: Equatable {
     enum Color {
         static let all = [UIColor.red, .green, .purple]
     }
-    
 }
 

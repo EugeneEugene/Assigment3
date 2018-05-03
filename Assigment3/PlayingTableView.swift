@@ -11,7 +11,7 @@ class PlayingTableView: UIView {
     lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds)
     var cardViews = Array<CardView>()
     
-     func addCardsTOView(cards: Array<Card>) {
+     func addCardsTOView(cards: Array<Card>) { 
         var cardsToShow = cards
         for i in 0..<grid.cellCount {
             let card = cardsToShow.remove(at: 0)
@@ -27,6 +27,7 @@ class PlayingTableView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        print("redraw")
         grid.frame = self.bounds
         for i in 0..<grid.cellCount {
             cardViews[i].frame = grid[i]!
