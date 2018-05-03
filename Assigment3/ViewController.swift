@@ -9,22 +9,32 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var playingTableOutlet: PlayingTableView!
     override func viewDidLoad() {
-        super.viewDidLoad()
-        print("grid count: \(playingTableOutlet.grid.cellCount)")
-        for index in 0..<playingTableOutlet.grid.cellCount {
-            let b = UIBezierPath(rect: playingTableOutlet.grid[1,1]!)
-            UIColor.red.setFill()
-            b.fill()
+        super.viewDidLoad() 
+//            let card = deck.remove(at: 0)
+            
+//            let b = UIBezierPath(rect: playingTableOutlet.grid[i]!.zoom(by: 0.85))
+//            UIColor.red.setFill()
+//            b.fill()
+            //            let cardView = CardView(frame: grid[i]!.zoom(by: 0.85))
+            //            cardView.color = card.color
+            //            cardView.number = card.number
+            //            cardView.shape = card.shape
+            //            cardView.shading = card.shading
+            //            self.addSubview(cardView)
+            //            cardView.setNeedsDisplay()
+            
         }
-        playingTableOutlet.setNeedsLayout()
-        playingTableOutlet.setNeedsDisplay()
+        
+
+        
+        
     }
+    
+    
+    
+    
 
-
-
-
-}
 
