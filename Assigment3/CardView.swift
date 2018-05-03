@@ -45,8 +45,8 @@ class CardView: UIView {
                 
             case .Triangle:
                 figurePath.move(to: CGPoint(x: grid1.midX, y: grid1.midY - 1/4*grid1.height))
-                figurePath.addLine(to: CGPoint(x: grid1.midX+1/4*grid1.width, y: grid1.midY+1/4*grid1.height))
-                figurePath.addLine(to: CGPoint(x: grid1.midX-1/4*grid1.width, y: grid1.midY+1/4*grid1.height))
+                figurePath.addLine(to: CGPoint(x: grid1.midX+1/12*grid1.width, y: grid1.midY+1/4*grid1.height))
+                figurePath.addLine(to: CGPoint(x: grid1.midX-1/12*grid1.width, y: grid1.midY+1/4*grid1.height))
                 figurePath.close()
             }
             
