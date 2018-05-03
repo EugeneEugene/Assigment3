@@ -18,16 +18,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wFF-LG-8ho">
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-xN-TXX">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="30"/>
+                                        <state key="normal" title="Add more cards"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyq-fy-Kuy">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="30"/>
+                                        <state key="normal" title="New Game"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </stackView>
                             <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="znA-hz-Tt9" customClass="PlayingTableView" customModule="Assigment3" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="607"/>
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="znA-hz-Tt9" secondAttribute="bottom" constant="100" id="Ou7-vM-bg3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wFF-LG-8ho" secondAttribute="trailing" id="3m9-8B-XSp"/>
                             <constraint firstItem="znA-hz-Tt9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PTt-if-VDj"/>
                             <constraint firstItem="znA-hz-Tt9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e6R-6u-EPY"/>
+                            <constraint firstItem="wFF-LG-8ho" firstAttribute="top" secondItem="znA-hz-Tt9" secondAttribute="bottom" constant="10" id="e6l-g4-xrl"/>
+                            <constraint firstItem="wFF-LG-8ho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o2h-qB-lvu"/>
+                            <constraint firstAttribute="bottom" secondItem="znA-hz-Tt9" secondAttribute="bottom" constant="40" id="sYh-6w-hY4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="znA-hz-Tt9" secondAttribute="trailing" id="uSo-7g-Hgd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

@@ -9,7 +9,7 @@ import UIKit
 
 class PlayingTableView: UIView {
     lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds)
-    var cards2 = Array<CardView>()
+    var cardViews = Array<CardView>()
     
      func addCardsTOView(cards: Array<Card>) {
         var cardsToShow = cards
@@ -21,17 +21,16 @@ class PlayingTableView: UIView {
             cardView.shape = card.shape
             cardView.shading = card.shading
             cardView.addConstraints(self.constraints)
-            cards2.append(cardView)
+            cardViews.append(cardView)
             addSubview(cardView)
         }
     }
     
     override func draw(_ rect: CGRect) {
         grid.frame = self.bounds
-        var deck = DeckOfCards().deck
         for i in 0..<grid.cellCount {
-            cards2[i].frame = grid[i]!
-            cards2[i].setNeedsDisplay()
+            cardViews[i].frame = grid[i]!
+            cardViews[i].setNeedsDisplay()
         }
     }
 }
