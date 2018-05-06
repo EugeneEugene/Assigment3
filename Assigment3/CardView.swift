@@ -6,14 +6,30 @@ class CardView: UIView {
     var number = 3
     var shading = Card.Shading.Striped
     lazy var grid = Grid(layout: .dimensions(rowCount: 3, columnCount: 1), frame: bounds.zoom(by: 0.8))
+    lazy var roundedRect = UIBezierPath(roundedRect: bounds.zoom(by: 0.85), cornerRadius: cornerRadius)
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func draw(_ rect: CGRect) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onImageTapped))
+        self.addGestureRecognizer(tapGestureRecognizer)
+        self.isUserInteractionEnabled = true
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.numberOfTouchesRequired = 1
+        
         grid.frame =  bounds.zoom(by: 0.8)
         self.backgroundColor = UIColor.yellow
         let context = UIGraphicsGetCurrentContext()
         UIColor.yellow.setFill()
         context?.fill(rect)
-        let roundedRect = UIBezierPath(roundedRect: bounds.zoom(by: 0.85), cornerRadius: cornerRadius)
+        roundedRect = UIBezierPath(roundedRect: bounds.zoom(by: 0.85), cornerRadius: cornerRadius)
         UIColor.white.setFill()
         roundedRect.fill()
         var grids = [CGRect]()
@@ -74,6 +90,15 @@ class CardView: UIView {
             figurePath.stroke()
         }
         
+    }
+    
+    @objc func onImageTapped(_ sender: UITapGestureRecognizer) {
+        print("ta[[ed")
+        let fillLayer = CAShapeLayer()
+        fillLayer.path = roundedRect.cgPath
+         fillLayer.fillColor = UIColor.red.cgColor
+        self.layer.addSublayer(fillLayer)
+
     }
     
 }

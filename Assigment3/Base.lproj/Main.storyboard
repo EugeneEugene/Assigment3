@@ -22,11 +22,19 @@
                                 <rect key="frame" x="0.0" y="637" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-xN-TXX">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="30"/>
                                         <state key="normal" title="Add more cards"/>
+                                        <connections>
+                                            <action selector="addThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kFg-EE-gJm"/>
+                                            <action selector="startNewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Yv-Yo-9kK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJa-6k-9n1">
+                                        <rect key="frame" x="125" y="0.0" width="125" height="30"/>
+                                        <state key="normal" title="0"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyq-fy-Kuy">
-                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="30"/>
+                                        <rect key="frame" x="250" y="0.0" width="125" height="30"/>
                                         <state key="normal" title="New Game"/>
                                         <connections>
                                             <action selector="startNewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RMr-Bh-rfG"/>
@@ -54,6 +62,7 @@
                     </view>
                     <connections>
                         <outlet property="playingTableOutlet" destination="znA-hz-Tt9" id="FPi-34-uFU"/>
+                        <outlet property="score" destination="AJa-6k-9n1" id="CIu-tq-AwS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
