@@ -9,29 +9,16 @@ import UIKit
 
 class PlayingTableView: UIView {
     lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds)
-    var cardViews = Array<CardView>()
-    
-     func addCardsTOView(cards: Array<Card>) { 
-        var cardsToShow = cards
-        for i in 0..<grid.cellCount {
-            let card = cardsToShow.remove(at: 0)
-            let cardView = CardView(frame: grid[i]!.zoom(by: 0.85))
-            cardView.color = card.color
-            cardView.number = card.number
-            cardView.shape = card.shape
-            cardView.shading = card.shading
-            cardView.addConstraints(self.constraints)
-            cardViews.append(cardView)
-            addSubview(cardView)
-        }
-    }
     
     override func draw(_ rect: CGRect) {
-        print("redraw")
         grid.frame = self.bounds
-        for i in 0..<grid.cellCount {
-            cardViews[i].frame = grid[i]!
-            cardViews[i].setNeedsDisplay()
+        var i = 0
+        for view in self.subviews {
+            if let cardView = view as? CardView {
+                cardView.frame = grid[i]!
+                i+=1
+                cardView.setNeedsDisplay()
+            }
         }
     }
 }
