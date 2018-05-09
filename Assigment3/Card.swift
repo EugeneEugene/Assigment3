@@ -5,12 +5,18 @@ struct Card: Equatable {
     let shape: Shape
     let number: Int
     let shading: Shading
+    var isChosen: Bool
     
     init(put shape: Shape, times number: Int, apply shading: Shading, paint color: UIColor) {
         self.shape = shape
         self.number = number
         self.shading = shading
         self.color = color
+        self.isChosen = false
+    }
+    
+    mutating func choose() {
+        isChosen = !isChosen
     }
     
     static func ==(lhs: Card, rhs: Card) -> Bool {

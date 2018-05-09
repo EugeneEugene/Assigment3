@@ -5,9 +5,13 @@ class CardView: UIView {
     var shape = Card.Shape.Triangle
     var number = 3
     var shading = Card.Shading.Striped
-    lazy var grid = Grid(layout: .dimensions(rowCount: 3, columnCount: 1), frame: bounds.zoom(by: 0.8))
+    var isSelected = false
+    lazy var grid = Grid(layout: .dimensions(rowCount: 3, columnCount: 1), frame: bounds)
     lazy var roundedRect = UIBezierPath(roundedRect: bounds.zoom(by: 0.85), cornerRadius: cornerRadius)
     
+    func test() {
+        print("test")
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,18 +22,15 @@ class CardView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onImageTapped))
-        self.addGestureRecognizer(tapGestureRecognizer)
+        var figurePath = UIBezierPath()
         self.isUserInteractionEnabled = true
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        tapGestureRecognizer.numberOfTouchesRequired = 1
-        
+    
         grid.frame =  bounds.zoom(by: 0.8)
         self.backgroundColor = UIColor.yellow
         let context = UIGraphicsGetCurrentContext()
         UIColor.yellow.setFill()
         context?.fill(rect)
-        roundedRect = UIBezierPath(roundedRect: bounds.zoom(by: 0.85), cornerRadius: cornerRadius)
+        roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         UIColor.white.setFill()
         roundedRect.fill()
         var grids = [CGRect]()
@@ -47,7 +48,6 @@ class CardView: UIView {
             assert(number<1 && number>3, "Incorrect quantity of shapes")
         }
         
-        var figurePath = UIBezierPath()
         for grid1 in grids {
             switch shape {
             case .Sphere:
@@ -91,16 +91,6 @@ class CardView: UIView {
         }
         
     }
-    
-    @objc func onImageTapped(_ sender: UITapGestureRecognizer) {
-        print("ta[[ed")
-        let fillLayer = CAShapeLayer()
-        fillLayer.path = roundedRect.cgPath
-         fillLayer.fillColor = UIColor.red.cgColor
-        self.layer.addSublayer(fillLayer)
-
-    }
-    
 }
 
 extension CardView {

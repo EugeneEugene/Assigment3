@@ -1,43 +1,71 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var playingTableOutlet: PlayingTableView!
-    @IBOutlet weak var score: UIButton!
-    var deck = DeckOfCards().deck
+    var cardViewsOnTable = [CardView]()
+    var setGame = SetModel()
+    @IBOutlet weak var playingTableOutlet: PlayingTableView! 
+    lazy var deck = setGame.deck
     
-//    var countOfCells
+    @IBOutlet weak var addCardsButton: UIButton!
+    @IBOutlet weak var scoreLabel: UIButton!
+    
+    var listOfChosenCardView = [CardView]()
+    //    var countOfCells
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        deck = DeckOfCards().deck
-        deck.shuffle()
-        addCardsTOView(cards: deck)
+        gameInit()
     }
     
     @IBAction func startNewGame(_ sender: UIButton) {
+        gameInit()
+    }
+    
+    func gameInit() {
         for view in playingTableOutlet.subviews {
             if let cardView = view as? CardView {
                 cardView.removeFromSuperview()
             }
         }
-        deck = DeckOfCards().deck
+        setGame = SetModel()
+        deck = setGame.deck
         deck.shuffle()
         playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: playingTableOutlet.grid.frame)
         addCardsTOView(cards: deck)
+        addCardsButton.isEnabled = true
     }
     
     func addCardsTOView(cards: Array<Card>) {
         var cardsToShow = cards
         for i in playingTableOutlet.subviews.count..<playingTableOutlet.grid.cellCount {
             let card = cardsToShow.remove(at: 0)
-            let cardView = CardView(frame: playingTableOutlet.grid[i]!.zoom(by: 0.85))
+            //            let cardView = CardView(frame: playingTableOutlet.grid[i]!.zoom(by: 0.85))
+            let cardView = CardView(frame: playingTableOutlet.grid[i]!)
             cardView.color = card.color
             cardView.number = card.number
             cardView.shape = card.shape
             cardView.shading = card.shading
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onImageTapped(sender:)))
+            cardView.addGestureRecognizer(tapGestureRecognizer)
             playingTableOutlet.addSubview(cardView)
+            //
+            cardViewsOnTable.append(cardView)
+            setGame.cardsOnTable.append(card)
         }
         playingTableOutlet.setNeedsDisplay()
+    }
+    
+    func updateViewFromModel() {
+        if setGame.chosenCards.count == 3, setGame.areMakeASet() {
+            //
+        }
+        else {
+            
+        }
+    }
+    
+    @objc func onImageTapped(sender: CardView) {
+        sender.test()
     }
     
     @IBAction func addThreeCards(_ sender: UIButton) {

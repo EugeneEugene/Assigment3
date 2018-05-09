@@ -8,20 +8,26 @@
 import UIKit
 
 class PlayingTableView: UIView {
+//    lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds.zoom(by: 0.85))
     lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds)
     
+    
     override func draw(_ rect: CGRect) {
+        print("rd")
         grid.frame = self.bounds
         var i = 0
         for view in self.subviews {
             if let cardView = view as? CardView {
-                cardView.frame = grid[i]!
+                cardView.frame = grid[i]!.zoom(by: 0.8)
                 i+=1
                 cardView.setNeedsDisplay()
+                cardView.setNeedsLayout()
             }
         }
     }
 }
+
+
 
 extension CGRect {
     func zoom(by zoomFactor: CGFloat) -> CGRect {
