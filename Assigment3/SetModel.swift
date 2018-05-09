@@ -6,8 +6,9 @@ struct SetModel {
     var matchedCards = [Card]()
     var cards = [Card]()
     var cardsOnTable = [Card]()
-    var chosenCards = [Card]() 
-    
+    var chosenCards = [Card]()
+    var chosenCardViews = [CardView]()
+    var cardViewsOnTable = [CardView]()
     
     let numbers = Card.Number.all
     let colors = [UIColor]()
@@ -47,7 +48,6 @@ struct SetModel {
         
         return !(uniqueColors.count == 2 || uniqueShapes.count == 2 || uniqueNumbers.count == 2 || uniqueShadings.count == 2)
     }
-    
 }
 
 extension Array {

@@ -1,17 +1,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var cardViewsOnTable = [CardView]()
-    var setGame = SetModel()
-    @IBOutlet weak var playingTableOutlet: PlayingTableView! 
-    lazy var deck = setGame.deck
-    
+    @IBOutlet weak var playingTableOutlet: PlayingTableView!
     @IBOutlet weak var addCardsButton: UIButton!
     @IBOutlet weak var scoreLabel: UIButton!
     
+    var setGame = SetModel()
+    lazy var deck = setGame.deck
     var listOfChosenCardView = [CardView]()
-    //    var countOfCells
-    
+
     override func viewDidLoad() {
         gameInit()
     }
@@ -45,27 +42,49 @@ class ViewController: UIViewController {
             cardView.shape = card.shape
             cardView.shading = card.shading
             
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onImageTapped(sender:)))
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onImageTapped))
             cardView.addGestureRecognizer(tapGestureRecognizer)
             playingTableOutlet.addSubview(cardView)
             //
-            cardViewsOnTable.append(cardView)
+            setGame.cardViewsOnTable.append(cardView)
             setGame.cardsOnTable.append(card)
         }
         playingTableOutlet.setNeedsDisplay()
     }
     
     func updateViewFromModel() {
-        if setGame.chosenCards.count == 3, setGame.areMakeASet() {
-            //
-        }
-        else {
-            
+        for cardView in setGame.cardViewsOnTable {
+            if setGame.chosenCardViews.contains(cardView) {
+                cardView.layer.borderWidth = 2
+                cardView.layer.borderColor = UIColor.blue.cgColor
+            }
+            else {
+                cardView.layer.borderWidth = 0
+                cardView.layer.borderColor = UIColor.clear.cgColor
+            }
         }
     }
     
-    @objc func onImageTapped(sender: CardView) {
-        sender.test()
+    @objc func onImageTapped(sender: UITapGestureRecognizer) {
+        if let selcetedView = sender.view {
+            if let cardView = selcetedView as? CardView {
+                if setGame.chosenCardViews.count == 3 {
+                    setGame.chosenCardViews.removeAll()
+                    setGame.chosenCardViews.append(cardView)
+                }
+                else {
+                    if setGame.chosenCardViews.contains(cardView) {
+                        if let indexToRemove = setGame.chosenCardViews.index(of: cardView) {
+                            setGame.chosenCardViews.remove(at: indexToRemove)
+                        }
+                    }
+                    else {
+                        setGame.chosenCardViews.append(cardView)
+                    }
+                }
+            }
+        }
+        updateViewFromModel()
     }
     
     @IBAction func addThreeCards(_ sender: UIButton) {

@@ -5,7 +5,6 @@ class CardView: UIView {
     var shape = Card.Shape.Triangle
     var number = 3
     var shading = Card.Shading.Striped
-    var isSelected = false
     lazy var grid = Grid(layout: .dimensions(rowCount: 3, columnCount: 1), frame: bounds)
     lazy var roundedRect = UIBezierPath(roundedRect: bounds.zoom(by: 0.85), cornerRadius: cornerRadius)
     
@@ -24,7 +23,7 @@ class CardView: UIView {
     override func draw(_ rect: CGRect) {
         var figurePath = UIBezierPath()
         self.isUserInteractionEnabled = true
-    
+        
         grid.frame =  bounds.zoom(by: 0.8)
         self.backgroundColor = UIColor.yellow
         let context = UIGraphicsGetCurrentContext()

@@ -1,19 +1,9 @@
-//
-//  PlayingTableView.swift
-//  
-//
-//  Created by eugene on 03/05/2018.
-//
-
 import UIKit
 
 class PlayingTableView: UIView {
-//    lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds.zoom(by: 0.85))
     lazy var grid = Grid(layout: .dimensions(rowCount: 9, columnCount: 3), frame: self.bounds)
     
-    
     override func draw(_ rect: CGRect) {
-        print("rd")
         grid.frame = self.bounds
         var i = 0
         for view in self.subviews {
@@ -26,8 +16,6 @@ class PlayingTableView: UIView {
         }
     }
 }
-
-
 
 extension CGRect {
     func zoom(by zoomFactor: CGFloat) -> CGRect {
