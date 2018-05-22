@@ -72,7 +72,8 @@ class ViewController: UIViewController {
     
     func deleteChosenCardViews() {
         for cardView in chosenCardViews {
-            cardView.isHidden = true
+//            cardView.isHidden = true
+            cardView.removeFromSuperview()
         }
     }
     
@@ -83,7 +84,11 @@ class ViewController: UIViewController {
                 if chosenCardViews.count == 3 {
                     if setGame.areMakeASet() {
                         deleteChosenCardViews()
-//                        addCard3Test()
+//                        let countOfColumn = playingTableOutlet.grid.dimensions.columnCount
+//                        let countOfRow = playingTableOutlet.grid.dimensions.rowCount + 1
+//                        playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: countOfRow, columnCount: countOfColumn), frame: playingTableOutlet.grid.frame)
+                        playingTableOutlet.setNeedsLayout()
+                        playingTableOutlet.setNeedsDisplay()
                     }
                     chosenCardViews.removeAll()
                     setGame.chosenCards.removeAll()
@@ -120,8 +125,6 @@ class ViewController: UIViewController {
 //        playingTableOutlet.setNeedsDisplay()
 //        playingTableOutlet.setNeedsLayout()
 //    }
-    
-    
     
     @IBAction func addThreeCards(_ sender: UIButton) {
         if deck.count >= 3{
