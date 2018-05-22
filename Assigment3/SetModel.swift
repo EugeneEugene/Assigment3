@@ -41,7 +41,6 @@ struct SetModel {
         let uniqueShapes = Array(Set(shapes))
         let uniqueNumbers  = Array(Set(numbers))
         let uniqueShadings = Array(Set(shadings))
-        
         return !(uniqueColors.count == 2 || uniqueShapes.count == 2 || uniqueNumbers.count == 2 || uniqueShadings.count == 2)
     }
 }

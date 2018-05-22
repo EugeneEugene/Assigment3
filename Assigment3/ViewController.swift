@@ -3,7 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var playingTableOutlet: PlayingTableView!
     @IBOutlet weak var addCardsButton: UIButton!
-
+    
     @IBOutlet weak var scoreLabel: UILabel!
     var score:Int = 0 {
         didSet{
@@ -32,6 +32,7 @@ class ViewController: UIViewController {
                 cardView.removeFromSuperview()
             }
         }
+        score = 0
         setGame = SetModel()
         deck = setGame.deck
         deck.shuffle()
@@ -39,8 +40,6 @@ class ViewController: UIViewController {
         addCardsTOView()
         addCardsButton.isEnabled = true
     }
-    
-//update view from model
     
     func addCardsTOView() {
         for i in playingTableOutlet.subviews.count..<playingTableOutlet.grid.cellCount {
@@ -71,6 +70,8 @@ class ViewController: UIViewController {
                 cardView.layer.borderColor = UIColor.clear.cgColor
             }
         }
+        playingTableOutlet.grid.cellCount = cardViewsOnTable.count
+        
         playingTableOutlet.setNeedsLayout()
         playingTableOutlet.setNeedsDisplay()
         
@@ -101,24 +102,29 @@ class ViewController: UIViewController {
                     if setGame.areMakeASet() {
                         score += 3
                         deleteChosenCardViews()
-                        let rowCount = playingTableOutlet.grid.dimensions.rowCount - 1
-                        let columnCount = playingTableOutlet.grid.dimensions.columnCount
                         if deck.count >= 3{
-                            playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
                             add3Cards()
                         }
-                        playingTableOutlet.setNeedsDisplay()
+                        else {
+                            let rowCount = playingTableOutlet.grid.dimensions.rowCount - 1
+                            let columnCount = playingTableOutlet.grid.dimensions.columnCount
+                            playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
+                            
+                        }
+                        
+                    }
+                    else {
+                        score -= 2
                     }
                     chosenCardViews.removeAll()
                     setGame.chosenCards.removeAll()
                     chosenCardViews.append(cardView)
                     setGame.chosenCards.append(chosenCard)
-    
+                    
                 }
                 else {
-                        chosenCardViews.append(cardView)
-                        setGame.chosenCards.append(chosenCard)
-                        score -= 2
+                    chosenCardViews.append(cardView)
+                    setGame.chosenCards.append(chosenCard)
                 }
             }
         }
@@ -126,15 +132,17 @@ class ViewController: UIViewController {
     }
     
     func add3Cards() {
-        let countOfColumn = playingTableOutlet.grid.dimensions.columnCount
-        let countOfRow = playingTableOutlet.grid.dimensions.rowCount + 1
-        playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: countOfRow, columnCount: countOfColumn), frame: playingTableOutlet.grid.frame)
-        addCardsTOView()
         playingTableOutlet.setNeedsDisplay()
+        playingTableOutlet.setNeedsLayout()
+        addCardsTOView()
+        updateViewFromModel()
     }
     
     @IBAction func addThreeCards(_ sender: UIButton) {
         if deck.count >= 3{
+            let rowCount = playingTableOutlet.grid.dimensions.rowCount + 1
+            let columnCount = playingTableOutlet.grid.dimensions.columnCount
+            playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
             add3Cards()
             score -= 1
         }
