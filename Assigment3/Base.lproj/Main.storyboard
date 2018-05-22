@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="30"/>
                                         <state key="normal" title="Add more cards"/>
                                         <connections>
-                                            <action selector="addThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kFg-EE-gJm"/>
+                                            <action selector="addThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HkF-mC-eLw"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNY-aM-RQY">
@@ -62,9 +62,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="addCardsButton" destination="h1q-xN-TXX" id="gi1-En-GjR"/>
+                        <outlet property="addCardsButton" destination="h1q-xN-TXX" id="Goq-EL-YZq"/>
                         <outlet property="playingTableOutlet" destination="znA-hz-Tt9" id="FPi-34-uFU"/>
-                        <outlet property="scoreLabel" destination="h1q-xN-TXX" id="aRw-ED-Qyy"/>
+                        <outlet property="scoreLabel" destination="jNY-aM-RQY" id="xw3-xS-bJr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

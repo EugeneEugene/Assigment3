@@ -3,7 +3,13 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var playingTableOutlet: PlayingTableView!
     @IBOutlet weak var addCardsButton: UIButton!
-    @IBOutlet weak var scoreLabel: UIButton!
+
+    @IBOutlet weak var scoreLabel: UILabel!
+    var score:Int = 0 {
+        didSet{
+            scoreLabel.text = String(score)
+        }
+    }
     
     var cardViewsOnTable = [CardView]()
     var chosenCardViews = [CardView]()
@@ -34,9 +40,7 @@ class ViewController: UIViewController {
         addCardsButton.isEnabled = true
     }
     
-    //dont get bigger
-    //dont add three cards
-    
+//update view from model
     
     func addCardsTOView() {
         for i in playingTableOutlet.subviews.count..<playingTableOutlet.grid.cellCount {
@@ -78,56 +82,61 @@ class ViewController: UIViewController {
     
     func deleteChosenCardViews() {
         for cardView in chosenCardViews {
-            //            cardView.isHidden = true
             cardView.removeFromSuperview()
         }
     }
     
     @objc func onImageTapped(sender: UITapGestureRecognizer) {
         if let selcetedView = sender.view {
+            
             if let cardView = selcetedView as? CardView {
                 let chosenCard = getCardFromView(cardView: cardView)
-                if chosenCardViews.count == 3 {
+                if chosenCardViews.contains(cardView) {
+                    if let indexToRemove = chosenCardViews.index(of: cardView) {
+                        chosenCardViews.remove(at: indexToRemove)
+                        setGame.chosenCards.remove(at: indexToRemove)
+                    }
+                }
+                else if chosenCardViews.count == 3 {
                     if setGame.areMakeASet() {
-                        
+                        score += 3
                         deleteChosenCardViews()
                         let rowCount = playingTableOutlet.grid.dimensions.rowCount - 1
                         let columnCount = playingTableOutlet.grid.dimensions.columnCount
-                        playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
+                        if deck.count >= 3{
+                            playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
+                            add3Cards()
+                        }
                         playingTableOutlet.setNeedsDisplay()
                     }
                     chosenCardViews.removeAll()
                     setGame.chosenCards.removeAll()
                     chosenCardViews.append(cardView)
                     setGame.chosenCards.append(chosenCard)
+    
                 }
                 else {
-                    if chosenCardViews.contains(cardView) {
-                        if let indexToRemove = chosenCardViews.index(of: cardView) {
-                            chosenCardViews.remove(at: indexToRemove)
-                            setGame.chosenCards.remove(at: indexToRemove)
-                        }
-                    }
-                    else {
-                        
                         chosenCardViews.append(cardView)
                         setGame.chosenCards.append(chosenCard)
-                    }
+                        score -= 2
                 }
             }
         }
         updateViewFromModel()
     }
     
+    func add3Cards() {
+        let countOfColumn = playingTableOutlet.grid.dimensions.columnCount
+        let countOfRow = playingTableOutlet.grid.dimensions.rowCount + 1
+        playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: countOfRow, columnCount: countOfColumn), frame: playingTableOutlet.grid.frame)
+        addCardsTOView()
+        playingTableOutlet.setNeedsDisplay()
+    }
     
     @IBAction func addThreeCards(_ sender: UIButton) {
         if deck.count >= 3{
-            let countOfColumn = playingTableOutlet.grid.dimensions.columnCount
-            let countOfRow = playingTableOutlet.grid.dimensions.rowCount + 1
-            playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: countOfRow, columnCount: countOfColumn), frame: playingTableOutlet.grid.frame)
-            var cardsToAdd = [Card]()
-            addCardsTOView()
-            playingTableOutlet.setNeedsDisplay()
+            add3Cards()
+            score -= 1
         }
         else {
             sender.isEnabled = false
