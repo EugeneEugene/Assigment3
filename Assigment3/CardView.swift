@@ -104,6 +104,3 @@ extension CardView {
         return bounds.size.height * SizeRatio.cornerRadiusToBoundsHeight
     }
 }
-
-
-

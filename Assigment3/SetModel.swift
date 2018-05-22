@@ -7,8 +7,6 @@ struct SetModel {
     var cards = [Card]()
     var cardsOnTable = [Card]()
     var chosenCards = [Card]()
-    var chosenCardViews = [CardView]()
-    var cardViewsOnTable = [CardView]()
     
     let numbers = Card.Number.all
     let colors = [UIColor]()
@@ -28,8 +26,6 @@ struct SetModel {
             }
         }
     }
-    
-    
     
     func areMakeASet() -> Bool {
         let firstCard = chosenCards[0]

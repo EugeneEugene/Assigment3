@@ -38,7 +38,6 @@ struct Grid
     }
     
     var layout: Layout { didSet { recalculate() } }
-    
     var frame: CGRect { didSet { recalculate() } }
     
     init(layout: Layout, frame: CGRect = CGRect.zero) {
