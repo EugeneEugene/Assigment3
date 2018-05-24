@@ -8,10 +8,10 @@ struct SetModel {
     var cardsOnTable = [Card]()
     var chosenCards = [Card]()
     
-    let numbers = Card.Number.all
-    let colors = [UIColor]()
-    let shapes = [Card.Shape]()
-    let shadings = [Card.Shading]()
+    private let numbers = Card.Number.all
+    private let colors = [UIColor]()
+    private let shapes = [Card.Shape]()
+    private let shadings = [Card.Shading]()
     
     var deck = [Card]()
     
@@ -27,7 +27,7 @@ struct SetModel {
         }
     }
     
-    func areMakeASet() -> Bool {
+    internal func areMakeASet() -> Bool {
         let firstCard = chosenCards[0]
         let secondCard = chosenCards[1]
         let thirdCard = chosenCards[2]
@@ -41,8 +41,7 @@ struct SetModel {
         let uniqueShapes = Array(Set(shapes))
         let uniqueNumbers  = Array(Set(numbers))
         let uniqueShadings = Array(Set(shadings))
-        return true 
-//        return !(uniqueColors.count == 2 || uniqueShapes.count == 2 || uniqueNumbers.count == 2 || uniqueShadings.count == 2)
+        return !(uniqueColors.count == 2 || uniqueShapes.count == 2 || uniqueNumbers.count == 2 || uniqueShadings.count == 2)
     }
 }
 

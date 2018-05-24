@@ -87,8 +87,7 @@ class CardView: UIView {
             context?.restoreGState()
             color.setStroke()
             figurePath.stroke()
-        }
-        
+        }        
     }
 }
 

@@ -1,24 +1,21 @@
 import UIKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
-    @IBOutlet weak var playingTableOutlet: PlayingTableView!
-    @IBOutlet weak var addCardsButton: UIButton!
-
-    
-    
-    @IBOutlet weak var scoreLabel: UILabel!
-    var score:Int = 0 {
+    @IBOutlet private weak var playingTableOutlet: PlayingTableView!
+    @IBOutlet private weak var addCardsButton: UIButton!
+    @IBOutlet private weak var scoreLabel: UILabel!
+    private var score:Int = 0 {
         didSet{
             scoreLabel.text = String(score)
         }
     }
     
-    var cardViewsOnTable = [CardView]()
-    var chosenCardViews = [CardView]()
+    private var cardViewsOnTable = [CardView]()
+    private var chosenCardViews = [CardView]()
     
-    var setGame = SetModel()
-    lazy var deck = setGame.deck
-    var listOfChosenCardView = [CardView]()
+    private var setGame = SetModel()
+    private lazy var deck = setGame.deck
+    private var listOfChosenCardView = [CardView]()
     
     override func viewDidLoad() {
         gameInit()
@@ -28,7 +25,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         gameInit()
     }
     
-    func gameInit() {
+    private func gameInit() {
         let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeDown))
         let rotationGesturRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
         swipeGestureRecognizer.direction = .down
@@ -50,7 +47,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         addCardsButton.isEnabled = true
     }
     
-    func addCardsTOView() {
+    private func addCardsTOView() {
         for i in playingTableOutlet.subviews.count..<playingTableOutlet.grid.cellCount {
             let card = deck.remove(at: 0)
             setGame.cardsOnTable.append(card)
@@ -72,7 +69,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         playingTableOutlet.setNeedsDisplay()
     }
     
-    @objc func rotationGesture(sender: UIRotationGestureRecognizer) {
+    @objc private func rotationGesture(sender: UIRotationGestureRecognizer) {
         for view in playingTableOutlet.subviews {
             if let cardView = view as? CardView {
                 cardView.removeFromSuperview()
@@ -95,12 +92,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             cardViewsOnTable.append(cardView)
             
         }
-        print("cards on table: \(setGame.cardsOnTable.count)")
         updateViewFromModel()
     }
     
-    
-    func updateViewFromModel() {
+    private func updateViewFromModel() {
         for cardView in cardViewsOnTable {
             if chosenCardViews.contains(cardView) {
                 cardView.layer.borderWidth = 2
@@ -111,17 +106,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 cardView.layer.borderColor = UIColor.clear.cgColor
             }
         }
-    
         playingTableOutlet.setNeedsLayout()
         playingTableOutlet.setNeedsDisplay()
-        
     }
     
-    func getCardFromView(cardView: CardView) -> Card {
+    private func getCardFromView(cardView: CardView) -> Card {
         return Card(put: cardView.shape, times: cardView.number, apply: cardView.shading, paint: cardView.color)
     }
     
-    func deleteChosenCardViews() {
+    private func deleteChosenCardViews() {
         for cardView in chosenCardViews {
             cardView.removeFromSuperview()
             if let indexToDelete = cardViewsOnTable.index(of: cardView) {
@@ -134,9 +127,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    @objc func onImageTapped(sender: UITapGestureRecognizer) {
+    @objc private  func onImageTapped(sender: UITapGestureRecognizer) {
         if let selcetedView = sender.view {
-            
             if let cardView = selcetedView as? CardView {
                 let chosenCard = getCardFromView(cardView: cardView)
                 if chosenCardViews.contains(cardView) {
@@ -156,7 +148,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                             let rowCount = playingTableOutlet.grid.dimensions.rowCount - 1
                             let columnCount = playingTableOutlet.grid.dimensions.columnCount
                             playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
-                            
                         }
                         
                     }
@@ -167,7 +158,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     setGame.chosenCards.removeAll()
                     chosenCardViews.append(cardView)
                     setGame.chosenCards.append(chosenCard)
-                    
                 }
                 else {
                     chosenCardViews.append(cardView)
@@ -178,13 +168,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         updateViewFromModel()
     }
     
-    @objc func swipeDown(sender: UITapGestureRecognizer) {
-        addThreeCards(UIButton())
+    @objc private  func swipeDown(sender: UITapGestureRecognizer) {
+    addThreeCards(UIButton())
     }
     
-
-    
-    func add3Cards() {
+    private func add3Cards() {
         playingTableOutlet.setNeedsDisplay()
         playingTableOutlet.setNeedsLayout()
         addCardsTOView()
@@ -198,7 +186,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
             add3Cards()
             score -= 1
-            print("add 3 more")
         }
         else {
             sender.isEnabled = false
