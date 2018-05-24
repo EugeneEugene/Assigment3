@@ -1,8 +1,10 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var playingTableOutlet: PlayingTableView!
     @IBOutlet weak var addCardsButton: UIButton!
+
+    
     
     @IBOutlet weak var scoreLabel: UILabel!
     var score:Int = 0 {
@@ -27,6 +29,13 @@ class ViewController: UIViewController {
     }
     
     func gameInit() {
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeDown))
+        let rotationGesturRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
+        swipeGestureRecognizer.direction = .down
+        
+        playingTableOutlet.isUserInteractionEnabled = true
+        playingTableOutlet.addGestureRecognizer(swipeGestureRecognizer)
+        playingTableOutlet.addGestureRecognizer(rotationGesturRecognizer)
         for view in playingTableOutlet.subviews {
             if let cardView = view as? CardView {
                 cardView.removeFromSuperview()
@@ -44,6 +53,7 @@ class ViewController: UIViewController {
     func addCardsTOView() {
         for i in playingTableOutlet.subviews.count..<playingTableOutlet.grid.cellCount {
             let card = deck.remove(at: 0)
+            setGame.cardsOnTable.append(card)
             let cardView = CardView(frame: playingTableOutlet.grid[i]!)
             cardView.color = card.color
             cardView.number = card.number
@@ -54,10 +64,41 @@ class ViewController: UIViewController {
             cardView.addGestureRecognizer(tapGestureRecognizer)
             playingTableOutlet.addSubview(cardView)
             cardViewsOnTable.append(cardView)
-            setGame.cardsOnTable.append(card)
+            if !setGame.cardsOnTable.contains(card) {
+                setGame.cardsOnTable.append(card)
+            }
+            
         }
         playingTableOutlet.setNeedsDisplay()
     }
+    
+    @objc func rotationGesture(sender: UIRotationGestureRecognizer) {
+        for view in playingTableOutlet.subviews {
+            if let cardView = view as? CardView {
+                cardView.removeFromSuperview()
+                
+            }
+        }
+        setGame.cardsOnTable.shuffle()
+        for i in playingTableOutlet.subviews.count..<playingTableOutlet.grid.cellCount {
+            let card = setGame.cardsOnTable.remove(at: 0)
+            setGame.cardsOnTable.append(card)
+            let cardView = CardView(frame: playingTableOutlet.grid[i]!)
+            cardView.color = card.color
+            cardView.number = card.number
+            cardView.shape = card.shape
+            cardView.shading = card.shading
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onImageTapped))
+            cardView.addGestureRecognizer(tapGestureRecognizer)
+            playingTableOutlet.addSubview(cardView)
+            cardViewsOnTable.append(cardView)
+            
+        }
+        print("cards on table: \(setGame.cardsOnTable.count)")
+        updateViewFromModel()
+    }
+    
     
     func updateViewFromModel() {
         for cardView in cardViewsOnTable {
@@ -70,8 +111,7 @@ class ViewController: UIViewController {
                 cardView.layer.borderColor = UIColor.clear.cgColor
             }
         }
-        playingTableOutlet.grid.cellCount = cardViewsOnTable.count
-        
+    
         playingTableOutlet.setNeedsLayout()
         playingTableOutlet.setNeedsDisplay()
         
@@ -84,6 +124,13 @@ class ViewController: UIViewController {
     func deleteChosenCardViews() {
         for cardView in chosenCardViews {
             cardView.removeFromSuperview()
+            if let indexToDelete = cardViewsOnTable.index(of: cardView) {
+                cardViewsOnTable.remove(at: indexToDelete)
+                let cardToDelete = getCardFromView(cardView: cardView)
+                if let indexToDelete = setGame.cardsOnTable.index(of: cardToDelete) {
+                    setGame.cardsOnTable.remove(at: indexToDelete)
+                }
+            }
         }
     }
     
@@ -131,6 +178,12 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
+    @objc func swipeDown(sender: UITapGestureRecognizer) {
+        addThreeCards(UIButton())
+    }
+    
+
+    
     func add3Cards() {
         playingTableOutlet.setNeedsDisplay()
         playingTableOutlet.setNeedsLayout()
@@ -145,6 +198,7 @@ class ViewController: UIViewController {
             playingTableOutlet.grid = Grid(layout: .dimensions(rowCount: rowCount, columnCount: columnCount))
             add3Cards()
             score -= 1
+            print("add 3 more")
         }
         else {
             sender.isEnabled = false
